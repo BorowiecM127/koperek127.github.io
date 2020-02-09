@@ -192,7 +192,8 @@ function animate() {
 
         camera.lookAt(scene.position);
     }
-    else if (document.getElementById("audio_input").files[0].name != undefined) {
+    else
+    {
         document.getElementById("filename").innerHTML = "Odtwarzanie wstrzymane. <br> Przeciągnij plik na ekran lub wciśnij play aby odtworzyć.";
     }
 

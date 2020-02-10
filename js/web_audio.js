@@ -1,9 +1,3 @@
-var touchDevice = ('ontouchstart' in document.body.documentElement);
-if(touchDevice==true)
-{
-    document.getElementById("filename").innerHTML = "Urządzenia dotykowe nieobsługiwane.";
-}
-
 var scene_rot = false;
 var target = document.documentElement;
 var body = document.body;
@@ -47,6 +41,11 @@ animate();
 
 
 
+
+function touch_device()
+{
+    document.getElementById("filename").innerHTML = "Urządzenia dotykowe nieobsługiwane.";
+}
 
 //Window resize
 window.addEventListener('resize', handle_resize, false);

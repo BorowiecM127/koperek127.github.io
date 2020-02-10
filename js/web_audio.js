@@ -1,6 +1,7 @@
-var isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
-if (isMobile) {
-    document.getElementById("filename").innerHTML = "Urządzenia mobilne na razie nieobsługiwane.";
+var touchDevice = ('ontouchstart' in document.documentElement);
+if(touchDevice==true)
+{
+    document.getElementById("filename").innerHTML = "Urządzenia dotykowe nieobsługiwane.";
 }
 
 var scene_rot = false;

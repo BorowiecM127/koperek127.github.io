@@ -44,7 +44,7 @@ animate();
 
 function touch_device()
 {
-    document.getElementById("filename").innerHTML = "Urządzenia dotykowe nieobsługiwane.";
+    document.getElementById("filename").style.zIndex = "-1";
 }
 
 //Window resize

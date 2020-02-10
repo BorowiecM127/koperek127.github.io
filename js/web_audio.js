@@ -44,8 +44,7 @@ animate();
 
 function touch_device()
 {
-    document.getElementById("filename").style.zIndex = "-1";
-    document.getElementById("file_from_drive").style.zIndex = "1";
+    document.getElementById("audio_input_button").style="display:block";
 }
 
 //Window resize

@@ -12,16 +12,18 @@
 	<title>Visualizer</title>
 </head>
 
-<body style="margin: 0" ondragover="allow_drop(event)" ondrop="drop(event)" ontouchstart="touch_device()">
+<body style="margin: 0" ondragover="allow_drop(event)" ondrop="drop(event)" onclick="touch_device()">
 
 	<!--Audio-->
 	<p id="filename" style="position: absolute; left: 30px; top: 20px; z-index: 1; color: #808080;"></p>
-	<p id="file_from_drive" style="position: absolute; left: 30px; top: 20px; z-index: -1; color: #808080; background-color: #000000;" onchange="file_play()">
-		<input type="file" id="audio_input" />
-		<audio id="sound" style="width:100%"></audio>
+	<p style="position: absolute; left: 30px; top: 60px; z-index: 1; color: #808080;">
+		<input type="file" id="audio_input" style="display:none" onchange="file_play()"/>
+		
+		<input type="button" id="audio_input_button" style="position: absolute; left: 30px; top: 20px; display:none" value="Przeglądaj..." 
+		onclick="document.getElementById('audio_input').click();" />
 	</p>
+
 	<div style="position: absolute; bottom:0px; z-index: 1; width:100%;">
-		<input type="file" id="audio_input" style="display:none"/>
 		<audio id="sound" style="width:100%"></audio>
 	</div>
 

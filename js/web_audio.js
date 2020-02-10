@@ -1,4 +1,4 @@
-var touchDevice = ('ontouchstart' in document.documentElement);
+var touchDevice = ('ontouchstart' in document.body.documentElement);
 if(touchDevice==true)
 {
     document.getElementById("filename").innerHTML = "Urządzenia dotykowe nieobsługiwane.";

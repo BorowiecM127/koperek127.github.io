@@ -1,3 +1,8 @@
+var isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
+if (isMobile) {
+    document.getElementById("filename").innerHTML = "Urządzenia mobilne na razie nieobsługiwane.";
+}
+
 var scene_rot = false;
 var target = document.documentElement;
 var body = document.body;
@@ -5,8 +10,9 @@ var file_input = document.querySelector('input');
 
 //WebAudio
 
-var context = new (window.AudioContext || window.webkitAudioContext)();
-var analyser = context.createAnalyser();
+var context;
+var analyser;
+var source;
 var sound_data_array;
 
 const MAX_SOUND_VALUE = 2;//The number of segments
@@ -46,22 +52,20 @@ window.addEventListener('resize', handle_resize, false);
 
 //Drag & drop
 
-target.addEventListener('dragover', (e) => {
-    e.preventDefault();
+function allow_drop(event)
+{
+    event.preventDefault();
     body.classList.add('dragging');
-});
+}
 
-target.addEventListener('dragleave', () => {
-    body.classList.remove('dragging');
-});
-
-target.addEventListener('drop', (e) => {
-    e.preventDefault();
+function drop(event)
+{
+    event.preventDefault();
     body.classList.remove('dragging');
 
-    file_input.files = e.dataTransfer.files;
+    file_input.files = event.dataTransfer.files;
     file_play();
-});
+}
 
 function handle_resize() {
     camera.aspect = window.innerWidth / window.innerHeight;
@@ -97,8 +101,14 @@ function file_play() {
 
 //Creating context and analyzer for further interactions
 //Connects the audio source to the analyser and creating a suitably sized array to hold the frequency data.
-function create_audio_objects() {
-    source = context.createMediaElementSource(document.getElementById("sound"));
+function create_audio_objects() 
+{
+    if(context==undefined)
+    {
+        context = new (window.AudioContext || window.webkitAudioContext)();
+        analyser = context.createAnalyser();
+        source = context.createMediaElementSource(document.getElementById("sound"));
+    }
     source.connect(analyser);
     analyser.connect(context.destination);
     //128, 256, 512, 1024 and 2048 are valid values.
@@ -108,14 +118,16 @@ function create_audio_objects() {
 
 //Audio samples
 //Returns the average of a small sample of the array. Index declares which sample you want from a no_sample_sections, ideal for iteration.
-function get_sample_of_sound_data(index, no_sample_sections, sound_data_array) {
+function get_sample_of_sound_data(index, no_sample_sections, sound_data_array)
+{
     var sample_size = Math.floor((sound_data_array.length / 2) / no_sample_sections);
 
     var min_bound = index * sample_size;
     var max_bound = (index + 1) * sample_size;
     var sum = 0;
 
-    for (var i = min_bound; i < max_bound; i++) {
+    for (var i = min_bound; i < max_bound; i++) 
+    {
         sum += sound_data_array[i];
     }
     var average = sum / sample_size;
